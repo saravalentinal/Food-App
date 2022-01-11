@@ -9,7 +9,7 @@ Debemos realizar una app que nos permita gestionar nuestro comercio de comidas r
 ### Estructura 
 
 1. Generar un archivo App que contendra nuestra aplicacion principal.
-2. Obtener y guardar los archivos ubicados en la carpeta `Stock` en nuestra app.
+2. Obtener y guardar los archivos ubicados en la carpeta `BaseDatos` en nuestra app.
 3. Generar una carpeta `funciones` donde guardaremos todos nuestros modulos.
 4. Crear un Objeto literal que contenga las siguientes propiedades:
 ```
