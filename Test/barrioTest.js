@@ -59,7 +59,7 @@ const runTestBarrio = (app) => {
     }
 
     if (errorsBarrios.length === 0) {
-        console.log('[ SUCCESS ] Test de barrios pasado correctamente.')
+        errorsBarrios.push('[ SUCCESS ] Test de barrios pasado correctamente.')
     }
 
     return errorsBarrios

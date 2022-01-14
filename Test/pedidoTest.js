@@ -101,7 +101,11 @@ const runTestPedido = (app) => {
                     }
                     
                     const pedidoNoExistente = app.buscarPedidoCliente( 'pedidoNoExistente' )
-                    if ( pedidoNoExistente !== [] ) errorsPedidos.push( 'La funcion buscarPedidoCliente debe devolver [] si el cliente buscado no tiene pedidos.' )
+                    if ( !Array.isArray(pedidoNoExistente) ) {
+                        errorsPedidos.push( 'La funcion buscarPedidoCliente debe devolver un array de pedidos.' ) 
+                    } else if ( pedidoNoExistente.length > 0 ) {
+                        errorsPedidos.push( 'La funcion buscarPedidoCliente debe devolver [] si el cliente buscado no tiene pedidos.' )
+                    }
                 
                 } catch (error) {
                     errorsPedidos.push("[ ERR-FATAL ] Ocurrio un error en el test de pedido en buscarPedidoCliente: ", error.message)
@@ -120,7 +124,7 @@ const runTestPedido = (app) => {
     }
 
     if (errorsPedidos.length === 0) {
-        console.log('[ SUCCESS ] Test de pedidos pasado correctamente.')
+        errorsPedidos.push('[ SUCCESS ] Test de pedidos pasado correctamente.')
     }
 
     return errorsPedidos

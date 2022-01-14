@@ -82,7 +82,7 @@ const runTestCliente = (app) => {
     }
 
     if (errorsClientes.length === 0) {
-        console.log('[ SUCCESS ] Test de clientes pasado correctamente.')
+        errorsClientes.push('[ SUCCESS ] Test de clientes pasado correctamente.')
     }
 
     return errorsClientes
