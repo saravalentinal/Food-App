@@ -6,8 +6,8 @@ const BARRIOS = JSON.parse(fs.readFileSync(path.join(__dirname, '../BaseDatos/ba
 const runTestBarrio = (app) => {
     const errorsBarrios = []
     try {
-        if ( app.barrrios ) {
-            if( app.barrrios.length !== BARRIOS.length) errorsBarrios.push( 'La importacion de barrios no es valida.' )
+        if ( app.barrios ) {
+            if( app.barrios.length !== BARRIOS.length) errorsBarrios.push( 'La importacion de barrios no es valida.' )
     
             const barriosError = app.barrios.filter( barrio => {
                 return typeof barrio !== 'string'
