@@ -21,10 +21,13 @@ const runTestPedido = (app) => {
             if ( app.buscarPedido) {
                 try {
                     const pedidoBuscado = app.buscarPedido(PEDIDOS[PEDIDOS.length-1].id)
-                    if ( pedidoBuscado === null ) errorsPedidos.push( 'La funcion buscarPedido no devuelve el pedido buscado.' )
-                    if ( Array.isArray(pedidoBuscado) ) errorsPedidos.push( 'La funcion buscarPedido debe devolver un objeto pedido.' )
-                    if ( pedidoBuscado.usuario !== PEDIDOS[PEDIDOS.length-1].usuario ) errorsPedidos.push( 'La funcion buscarPedido devuelve un pedido diferente al buscado.' )
-                    
+                    if ( pedidoBuscado === null || pedidoBuscado === undefined ) {
+                        errorsPedidos.push( 'La funcion buscarPedido no devuelve el pedido buscado.' )
+                    } else if ( Array.isArray(pedidoBuscado) ) {
+                        errorsPedidos.push( 'La funcion buscarPedido debe devolver un objeto pedido.' )
+                    } else if ( pedidoBuscado.usuario !== PEDIDOS[PEDIDOS.length-1].usuario ) {
+                        errorsPedidos.push( 'La funcion buscarPedido devuelve un pedido diferente al buscado.' )
+                    }
                     const pedidoNoExistente = app.buscarPedido( 'pedidoNoExistente' )
                     if ( pedidoNoExistente !== null ) errorsPedidos.push( 'La funcion buscarPedido debe devolver null si el pedido no existe.' )
                 
@@ -36,61 +39,66 @@ const runTestPedido = (app) => {
             }
 
             if ( app.crearPedido) {
-                const pedidoNuevoOk = {
-                    id: Date.now(),
-                    usuario: USUARIO[0].usuario,
-                    barrio: BARRIOS[0],
-                    costo: 1300
-                }
+                try {
+                    const pedidoNuevoOk = {
+                        id: Date.now(),
+                        usuario: CLIENTES[0].usuario,
+                        barrio: BARRIOS[0],
+                        costo: 1300
+                    }
 
-                const clienteNuevoErroneoBarrio = {
-                    id: Date.now(),
-                    usuario: USUARIO[0].usuario,
-                    barrio: `Barrio No existente${Date.now()}`,
-                    costo: 1300
-                }
+                    const clienteNuevoErroneoBarrio = {
+                        id: Date.now(),
+                        usuario: CLIENTES[0].usuario,
+                        barrio: `Barrio No existente${Date.now()}`,
+                        costo: 1300
+                    }
 
-                const clienteNuevoErroneoCliente = {
-                    id: Date.now(),
-                    usuario: `Usuario No existente${Date.now()}`,
-                    barrio: BARRIOS[0],
-                    costo: 1300
-                }
+                    const clienteNuevoErroneoCliente = {
+                        id: Date.now(),
+                        usuario: `Usuario No existente${Date.now()}`,
+                        barrio: BARRIOS[0],
+                        costo: 1300
+                    }
 
-                const pedidoExistente = PEDIDOS[0]
+                    const pedidoExistente = PEDIDOS[0]
 
-                const deberaSerTrue = app.crearPedido(pedidoNuevoOk)
-                const deberaSerFalseDuplicado = app.crearPedido(pedidoExistente)
-                const deberaSerFalseBarrio = app.crearPedido(clienteNuevoErroneoBarrio)
-                const deberaSerFalseCliente = app.crearPedido(clienteNuevoErroneoCliente)
+                    const deberaSerTrue = app.crearPedido(pedidoNuevoOk)
+                    const deberaSerFalseDuplicado = app.crearPedido(pedidoExistente)
+                    const deberaSerFalseBarrio = app.crearPedido(clienteNuevoErroneoBarrio)
+                    const deberaSerFalseCliente = app.crearPedido(clienteNuevoErroneoCliente)
 
-                if (deberaSerTrue) {
-                    const pedidoBuscado = app.pedidos.filter(pedido => pedido.id === pedidoNuevoOk.id)
-                    if (pedidoBuscado.length === 0) errorsPedidos.push( 'La funcion crearPedido no agrega el pedido nuevo.' )
-                    if (pedidoBuscado.length > 1) errorsPedidos.push( 'La funcion crearPedido no valida si el pedido ya existe.' )
-                } else {
-                    errorsPedidos.push( 'Al crear un pedido nuevo debera devolver true' )
-                }
+                    if (deberaSerTrue) {
+                        const pedidoBuscado = app.pedidos.filter(pedido => pedido.id === pedidoNuevoOk.id)
+                        if (pedidoBuscado.length === 0) errorsPedidos.push( 'La funcion crearPedido no agrega el pedido nuevo.' )
+                        if (pedidoBuscado.length > 1) errorsPedidos.push( 'La funcion crearPedido no valida si el pedido ya existe.' )
+                    } else {
+                        errorsPedidos.push( 'Al crear un pedido nuevo debera devolver true' )
+                    }
 
-                if (!deberaSerFalseDuplicado) {
-                    const pedidoBuscadoDuplicado = app.pedidos.filter(pedido => pedido.id === pedidoExistente.id)
-                    if (pedidoBuscadoDuplicado.length !== 1) errorsPedidos.push( 'La funcion crearPedido no debera modificar si el pedido ya existe.' )
-                } else {
-                    errorsPedidos.push( 'Al intentar crear un pedido existente debera devolver false' )
-                }
+                    if (!deberaSerFalseDuplicado) {
+                        const pedidoBuscadoDuplicado = app.pedidos.filter(pedido => pedido.id === pedidoExistente.id)
+                        if (pedidoBuscadoDuplicado.length !== 1) errorsPedidos.push( 'La funcion crearPedido no debera modificar si el pedido ya existe.' )
+                    } else {
+                        errorsPedidos.push( 'Al intentar crear un pedido existente debera devolver false' )
+                    }
 
-                if (!deberaSerFalseBarrio) {
-                    const pedidoBuscadoBarrio = app.pedidos.filter(pedido => pedido.id === clienteNuevoErroneoBarrio.id)
-                    if (pedidoBuscadoBarrio.length !== 0) errorsPedidos.push( 'La funcion crearPedido no debera agregar si el pedido tiene un barrio erroneo.' )
-                } else {
-                    errorsPedidos.push( 'Al intentar crear un pedido con un barrio inexistente debera devolver false' )
-                }
+                    if (!deberaSerFalseBarrio) {
+                        const pedidoBuscadoBarrio = app.pedidos.filter(pedido => pedido.id === clienteNuevoErroneoBarrio.id)
+                        if (pedidoBuscadoBarrio.length !== 0) errorsPedidos.push( 'La funcion crearPedido no debera agregar si el pedido tiene un barrio erroneo.' )
+                    } else {
+                        errorsPedidos.push( 'Al intentar crear un pedido con un barrio inexistente debera devolver false' )
+                    }
 
-                if (!deberaSerFalseCliente) {
-                    const pedidoBuscadoCliente = app.pedidos.filter(pedido => pedido.id === clienteNuevoErroneoCliente.id)
-                    if (pedidoBuscadoCliente.length !== 0) errorsPedidos.push( 'La funcion crearPedido no debera agregar si el pedido tiene un cliente erroneo.' )
-                } else {
-                    errorsPedidos.push( 'Al intentar crear un pedido con un cliente inexistente debera devolver false' )
+                    if (!deberaSerFalseCliente) {
+                        const pedidoBuscadoCliente = app.pedidos.filter(pedido => pedido.id === clienteNuevoErroneoCliente.id)
+                        if (pedidoBuscadoCliente.length !== 0) errorsPedidos.push( 'La funcion crearPedido no debera agregar si el pedido tiene un cliente erroneo.' )
+                    } else {
+                        errorsPedidos.push( 'Al intentar crear un pedido con un cliente inexistente debera devolver false' )
+                    }
+
+                } catch (error) {
+                    errorsPedidos.push("[ ERR-FATAL ] Ocurrio un error en el test de pedido en crearPedido: ", error.message)
                 }
 
 
