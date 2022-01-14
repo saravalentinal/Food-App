@@ -19,9 +19,14 @@ const runTestCliente = (app) => {
             if ( app.buscarCliente) {
                 try {
                     const clienteBuscado = app.buscarCliente(CLIENTES[CLIENTES.length-1].usuario)
-                    if ( clienteBuscado === null ) errorsClientes.push( 'La funcion buscarCliente no devuelve el cliente buscado.' )
-                    if ( Array.isArray(clienteBuscado) ) errorsClientes.push( 'La funcion buscarCliente debe devolver un objeto cliente.' )
-                    if ( clienteBuscado.usuario !== CLIENTES[CLIENTES.length-1].usuario ) errorsClientes.push( 'La funcion buscarCliente devuelve un cliente diferente al buscado.' )
+
+                    if ( clienteBuscado === null || clienteBuscado === undefined ) { 
+                        errorsClientes.push( 'La funcion buscarCliente no devuelve el cliente buscado.' )
+                    } else if ( Array.isArray(clienteBuscado) ) {
+                        errorsClientes.push( 'La funcion buscarCliente debe devolver un objeto cliente.' )
+                    } else if (clienteBuscado.usuario !== CLIENTES[CLIENTES.length-1].usuario ) {
+                        errorsClientes.push( 'La funcion buscarCliente devuelve un cliente diferente al buscado.' )
+                    }
                     
                     const clienteNoExistente = app.buscarCliente( 'clienteNoExistente' )
                     if ( clienteNoExistente !== null ) errorsClientes.push( 'La funcion buscarCliente debe devolver null si el cliente no existe.' )
