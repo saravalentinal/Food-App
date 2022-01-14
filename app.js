@@ -1,5 +1,6 @@
-const runTest = require('test')
+const miApp = {
+}
 
-const miApp = {}
 
-runTest( miApp )
+
+module.exports = miApp

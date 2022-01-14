@@ -1,0 +1,22 @@
+{
+  "name": "masterclasstn27",
+  "version": "1.0.0",
+  "description": "Debemos realizar una app que nos permita gestionar nuestro comercio de comidas rapidas ubicado en la Capital Federal de la ciudad de Buenos Aires, Argentina. Para ello, debemos completar los siguientes requerimientos:",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LucasSequeDev/masterClassTN27.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LucasSequeDev/masterClassTN27/issues"
+  },
+  "homepage": "https://github.com/LucasSequeDev/masterClassTN27#readme",
+  "devDependencies": {
+    "nodemon": "2.0.15"
+  }
+}
