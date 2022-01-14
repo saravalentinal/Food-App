@@ -73,7 +73,7 @@ const runTestCliente = (app) => {
                 }
 
                 if (!deberaSerFalseBarrio) {
-                    const clienteBuscadoBarrio = app.clientes.filter(cliente => cliente.usuario === clienteExistente.usuario)
+                    const clienteBuscadoBarrio = app.clientes.filter(cliente => cliente.usuario === clienteNuevoErroneo.usuario)
                     if (clienteBuscadoBarrio.length !== 0) errorsClientes.push( 'La funcion crearCliente no debera agregar si el usuario ya tiene un barrio erroneo.' )
                 } else {
                     errorsClientes.push( 'Al intentar crear un cliente con un barrio inexistente debera devolver false' )
