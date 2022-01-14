@@ -5,15 +5,14 @@ const CLIENTES = JSON.parse(fs.readFileSync(path.join(__dirname, '../BaseDatos/c
 const BARRIOS = JSON.parse(fs.readFileSync(path.join(__dirname, '../BaseDatos/barrios.json'),'utf-8'))
 
 const runTestCliente = (app) => {
-    const errorsClientes = []
+    let errorsClientes = []
     try {
         if ( app.clientes ) {
             if( app.clientes.length !== CLIENTES.length) errorsClientes.push( 'La importacion de clientes no es valida.' )
-    
+            
             const clientesError = app.clientes.filter( cliente => {
-                return typeof cliente.usuario !== 'string' || typeof cliente.mail !== 'string' || typeof cliente.barrio !== 'string' || typeof cliente.gastoAcumulado !== 'number'
-            })
-    
+                return typeof cliente.usuario !== 'string' || typeof cliente.mail !== 'string' || typeof cliente.barrio !== 'string'
+            })    
             if ( clientesError.length > 0 ) return errorsClientes.push( 'Los clientes no tienen los campos correctos.' )
         
             // Test Modulos 
@@ -28,7 +27,7 @@ const runTestCliente = (app) => {
                     if ( clienteNoExistente !== null ) errorsClientes.push( 'La funcion buscarCliente debe devolver null si el cliente no existe.' )
                 
                 } catch (error) {
-                    errorsClientes.push("[ERROR-FATAL] Ocurrio un error en el test de clientes en buscarCliente: ", error.message)
+                    errorsClientes.push("[ ERR-FATAL ] Ocurrio un error en el test de clientes en buscarCliente: ", error.message)
                 }
             } else { 
                 errorsClientes.push( 'Nuestra app no tiene implementado la funcionabilidad de buscarClientes.' )
@@ -85,11 +84,11 @@ const runTestCliente = (app) => {
         }
     
     } catch (error) {
-        errorsClientes.push("[ERROR-FATAL] Ocurrio un error en el test de clientes: ", error.message)
+        errorsClientes.push("[ ERR-FATAL ] Ocurrio un error en el test de clientes: ", error.message)
     }
 
     if (errorsClientes.length === 0) {
-        console.log('[SUCCESS] Test de clientes pasado correctamente.')
+        console.log('[ SUCCESS ] Test de clientes pasado correctamente.')
     }
 
     return errorsClientes

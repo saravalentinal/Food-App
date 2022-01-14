@@ -4,10 +4,12 @@ const finalTest = ( errors ) => {
         if (errors.length === 0) {
             console.log('Felicidades!!! Todos los tests pasaron.')
         } else {
-            errors.map( error => console.log( '[ERROR] ' + error ) )
+            errors.map( error => error.startsWith("#") || error.startsWith("[") || error.startsWith(" ")
+                                    ? console.log( error ) 
+                                    : console.log( "# [ ERR ] " + error) )
         }
     } catch (error) {
-        console.error("[ERROR-FATAL] Ocurrio un error en el test final: ", error.message)
+        console.error("[ ERR-FATAL ] Ocurrio un error en el test final: ", error.message)
     }
 
     return

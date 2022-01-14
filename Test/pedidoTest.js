@@ -29,7 +29,7 @@ const runTestPedido = (app) => {
                     if ( pedidoNoExistente !== null ) errorsPedidos.push( 'La funcion buscarPedido debe devolver null si el pedido no existe.' )
                 
                 } catch (error) {
-                    errorsPedidos.push("[ERROR-FATAL] Ocurrio un error en el test de pedido en buscarPedido: ", error.message)
+                    errorsPedidos.push("[ ERR-FATAL ] Ocurrio un error en el test de pedido en buscarPedido: ", error.message)
                 }
             } else { 
                 errorsPedidos.push( 'Nuestra app no tiene implementado la funcionabilidad de buscarPedido.' )
@@ -116,7 +116,7 @@ const runTestPedido = (app) => {
                     if ( pedidoNoExistente !== [] ) errorsPedidos.push( 'La funcion buscarPedidoCliente debe devolver [] si el cliente buscado no tiene pedidos.' )
                 
                 } catch (error) {
-                    errorsPedidos.push("[ERROR-FATAL] Ocurrio un error en el test de pedido en buscarPedidoCliente: ", error.message)
+                    errorsPedidos.push("[ ERR-FATAL ] Ocurrio un error en el test de pedido en buscarPedidoCliente: ", error.message)
                 }
             } else { 
                 errorsPedidos.push( 'Nuestra app no tiene implementado la funcionabilidad de buscarPedidoCliente.' )
@@ -128,11 +128,11 @@ const runTestPedido = (app) => {
         }
     
     } catch (error) {
-        errorsPedidos.push("[ERROR-FATAL] Ocurrio un error en el test de pedidos: ", error.message)
+        errorsPedidos.push("[ ERR-FATAL ] Ocurrio un error en el test de pedidos: ", error.message)
     }
 
     if (errorsPedidos.length === 0) {
-        console.log('[SUCCESS] Test de pedidos pasado correctamente.')
+        console.log('[ SUCCESS ] Test de pedidos pasado correctamente.')
     }
 
     return errorsPedidos

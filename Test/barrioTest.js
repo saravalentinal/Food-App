@@ -55,11 +55,11 @@ const runTestBarrio = (app) => {
             errorsBarrios.push( 'No existe barrios en nuestra app.' )
         }
     } catch (error) {
-        errorsBarrios.push("[ERROR-FATAL] Ocurrio un error en el test de barrios: ", error.message)
+        errorsBarrios.push("[ ERR-FATAL ] Ocurrio un error en el test de barrios: ", error.message)
     }
 
     if (errorsBarrios.length === 0) {
-        console.log('[SUCCESS] Test de barrios pasado correctamente.')
+        console.log('[ SUCCESS ] Test de barrios pasado correctamente.')
     }
 
     return errorsBarrios
