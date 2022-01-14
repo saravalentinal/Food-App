@@ -68,34 +68,14 @@ const runTestPedido = (app) => {
                     const deberaSerFalseBarrio = app.crearPedido(clienteNuevoErroneoBarrio)
                     const deberaSerFalseCliente = app.crearPedido(clienteNuevoErroneoCliente)
 
-                    if (deberaSerTrue) {
-                        const pedidoBuscado = app.pedidos.filter(pedido => pedido.id === pedidoNuevoOk.id)
-                        if (pedidoBuscado.length === 0) errorsPedidos.push( 'La funcion crearPedido no agrega el pedido nuevo.' )
-                        if (pedidoBuscado.length > 1) errorsPedidos.push( 'La funcion crearPedido no valida si el pedido ya existe.' )
-                    } else {
-                        errorsPedidos.push( 'Al crear un pedido nuevo debera devolver true' )
-                    }
+                    if (!deberaSerTrue) errorsPedidos.push( 'Al crear un pedido nuevo debera devolver true' )
 
-                    if (!deberaSerFalseDuplicado) {
-                        const pedidoBuscadoDuplicado = app.pedidos.filter(pedido => pedido.id === pedidoExistente.id)
-                        if (pedidoBuscadoDuplicado.length !== 1) errorsPedidos.push( 'La funcion crearPedido no debera modificar si el pedido ya existe.' )
-                    } else {
-                        errorsPedidos.push( 'Al intentar crear un pedido existente debera devolver false' )
-                    }
+                    if (deberaSerFalseDuplicado) errorsPedidos.push( 'Al intentar crear un pedido existente debera devolver false' )
 
-                    if (!deberaSerFalseBarrio) {
-                        const pedidoBuscadoBarrio = app.pedidos.filter(pedido => pedido.id === clienteNuevoErroneoBarrio.id)
-                        if (pedidoBuscadoBarrio.length !== 0) errorsPedidos.push( 'La funcion crearPedido no debera agregar si el pedido tiene un barrio erroneo.' )
-                    } else {
-                        errorsPedidos.push( 'Al intentar crear un pedido con un barrio inexistente debera devolver false' )
-                    }
+                    if (deberaSerFalseBarrio) errorsPedidos.push( 'Al intentar crear un pedido con un barrio inexistente debera devolver false' )
 
-                    if (!deberaSerFalseCliente) {
-                        const pedidoBuscadoCliente = app.pedidos.filter(pedido => pedido.id === clienteNuevoErroneoCliente.id)
-                        if (pedidoBuscadoCliente.length !== 0) errorsPedidos.push( 'La funcion crearPedido no debera agregar si el pedido tiene un cliente erroneo.' )
-                    } else {
-                        errorsPedidos.push( 'Al intentar crear un pedido con un cliente inexistente debera devolver false' )
-                    }
+                    if (deberaSerFalseCliente) errorsPedidos.push( 'Al intentar crear un pedido con un cliente inexistente debera devolver false' )
+
 
                 } catch (error) {
                     errorsPedidos.push("[ ERR-FATAL ] Ocurrio un error en el test de pedido en crearPedido: ", error.message)

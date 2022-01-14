@@ -65,20 +65,9 @@ const runTestCliente = (app) => {
                     errorsClientes.push( 'Al crear un cliente nuevo debera devolver true' )
                 }
 
-                if (!deberaSerFalseDuplicado) {
-                    const clienteBuscadoDuplicado = app.clientes.filter(cliente => cliente.usuario === clienteExistente.usuario)
-                    if (clienteBuscadoDuplicado.length !== 1) errorsClientes.push( 'La funcion crearCliente no debera modificar si el usuario ya existe.' )
-                } else {
-                    errorsClientes.push( 'Al intentar crear un cliente existente debera devolver false' )
-                }
+                if (deberaSerFalseDuplicado) errorsClientes.push( 'Al intentar crear un cliente existente debera devolver false' )
 
-                if (!deberaSerFalseBarrio) {
-                    const clienteBuscadoBarrio = app.clientes.filter(cliente => cliente.usuario === clienteNuevoErroneo.usuario)
-                    if (clienteBuscadoBarrio.length !== 0) errorsClientes.push( 'La funcion crearCliente no debera agregar si el usuario ya tiene un barrio erroneo.' )
-                } else {
-                    errorsClientes.push( 'Al intentar crear un cliente con un barrio inexistente debera devolver false' )
-                }
-
+                if (deberaSerFalseBarrio) errorsClientes.push( 'Al intentar crear un cliente con un barrio inexistente debera devolver false' )
 
             } else { 
                 errorsClientes.push( 'Nuestra app no tiene implementado la funcionabilidad de crearCliente.' )
